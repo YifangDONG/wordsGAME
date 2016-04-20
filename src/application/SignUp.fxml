@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="200.0" prefWidth="320.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+   <children>
+      <Label alignment="CENTER" layoutX="35.0" layoutY="14.0" prefHeight="17.0" prefWidth="250.0" textFill="RED" />
+      <TextField layoutX="86.0" layoutY="57.0" promptText="Pick a username" />
+      <PasswordField layoutX="86.0" layoutY="88.0" promptText="Create a password" />
+      <PasswordField layoutX="86.0" layoutY="118.0" promptText="Re-type Password" />
+      <Button layoutX="235.0" layoutY="155.0" mnemonicParsing="false" text="Sign up" />
+   </children>
+</AnchorPane>

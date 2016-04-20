@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="600.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Game3Controller">
+	<!-- TODO Add Nodes -->
+	<children>
+		<TextField fx:id="writting" layoutX="126.0" layoutY="312.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" />
+      	<Button fx:id="next" layoutX="275.0" layoutY="496.0" mnemonicParsing="false" onAction="#Next" prefHeight="25.0" prefWidth="67.0" text="NEXT" />
+      	<Label fx:id="word" layoutX="126.0" layoutY="185.0" prefHeight="36.0" prefWidth="149.0" text="" textAlignment="CENTER" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" />
+      	<Label fx:id="answer" layoutX="66.0" layoutY="392.0" prefHeight="36.0" prefWidth="295.0" text="" textAlignment="CENTER" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" />
+      	<Button fx:id="ok" layoutX="93.0" layoutY="496.0" mnemonicParsing="false" onAction="#OK" prefHeight="25.0" prefWidth="67.0" text="OK" />
+      	<Label fx:id="score" layoutX="309.0" layoutY="63.0" prefHeight="25.0" prefWidth="42.0" text="Label" />
+      <Label layoutX="233.0" layoutY="67.0" text="Score：" />
+      <Label layoutX="36.0" layoutY="67.0" prefHeight="17.0" prefWidth="42.0" text="Time : " />
+      <Label fx:id="time" layoutX="93.0" layoutY="67.0" text="Label" />
+     </children>
+</AnchorPane>

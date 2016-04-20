@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<words>
+  <entry>
+    <id>0</id>
+    <word>computer</word>
+	<pos>n.</pos>
+    <trans>ordinateur</trans>
+  </entry>
+  <entry>
+    <id>1</id>
+    <word>free</word>
+	<pos>adj.</pos>
+    <trans>libre</trans>
+  </entry>
+  <entry>
+    <id>2</id>
+    <word>dog</word>
+	<pos>n.</pos>
+    <trans>chien</trans>
+  </entry>
+  <entry>
+    <id>3</id>
+    <word>rain cats and dogs</word>
+	<pos>v.</pos>
+    <trans>pleuvoir averse</trans>
+  </entry>
+  <entry>
+    <id>4</id>
+    <word>pond</word>
+	<pos>n.</pos>
+    <trans>étang</trans>
+  </entry>
+    <entry>
+    <id>5</id>
+    <word>version</word>
+	<pos>n.</pos>
+    <trans>version</trans>
+  </entry>
+    <entry>
+    <id>6</id>
+    <word>love</word>
+	<pos>n.</pos>
+    <trans>amour</trans>
+  </entry>
+    <entry>
+    <id>7</id>
+    <word>backpack</word>
+	<pos>n.</pos>
+    <trans>sac à dos</trans>
+  </entry>
+    <entry>
+    <id>8</id>
+    <word>boy</word>
+	<pos>n.</pos>
+    <trans>garçon</trans>
+  </entry>
+    <entry>
+    <id>9</id>
+    <word>learn</word>
+	<pos>v.</pos>
+    <trans>apprendre</trans>
+  </entry>
+</words>
