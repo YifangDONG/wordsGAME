@@ -16,7 +16,8 @@ import javafx.stage.Stage;
 
 public class MainController implements Initializable{
 	 
-
+	private static final int ROUND = 20;
+	
 	@FXML
 	private Button game1; 
 	@FXML
@@ -35,6 +36,7 @@ public class MainController implements Initializable{
 		stage.setScene(scene);
 		stage.setTitle("Game 1");
 		stage.show();
+		new TimeOut(ROUND,stage);
 	}
 	
 	@FXML
@@ -45,6 +47,7 @@ public class MainController implements Initializable{
 		stage.setScene(scene);
 		stage.setTitle("Game 2");
 		stage.show();
+		new TimeOut(ROUND,stage);
 	}
 	
 	@FXML
@@ -56,6 +59,7 @@ public class MainController implements Initializable{
 			stage.setScene(scene);
 			stage.setTitle("Game 3");
 			stage.show();
+			new TimeOut(ROUND,stage);
 		}
 	}
 	

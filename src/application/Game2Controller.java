@@ -14,6 +14,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class Game2Controller implements Initializable {
 
@@ -43,6 +44,7 @@ public class Game2Controller implements Initializable {
 		Set(tiles);
 		score.setText("0");
 		time.setText("");
+    	new TimeOut(ROUND,time);
 	}
 	public void Set(List<String> word) {
 		for (int i = 0; i < ROW && !word.isEmpty(); i++) {

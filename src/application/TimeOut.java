@@ -32,7 +32,7 @@ public class TimeOut {
 	public TimeOut (int second, Stage stage) {
 		timer = new Timer();
 		this.stage = stage;
-		timer.schedule(new Task(), second * 1000);
+		timer.schedule(new Task1(), second * 1000);
 	}
 	/**
 	 * constructor which sets second and time label
@@ -45,7 +45,7 @@ public class TimeOut {
 		timer = new Timer();
 		timer.schedule(new Task2(), 0, 1000 );
 	}
-	class Task extends TimerTask {
+	class Task1 extends TimerTask {
 
 		@Override
 		public void run() {
@@ -64,6 +64,7 @@ public class TimeOut {
 	 * @param message the message showed in this window
 	 */
 	public void display(String title, String message) {
+		if(stage.isShowing()) {
         Stage finish = new Stage();
 
         //Block events to other windows
@@ -93,6 +94,7 @@ public class TimeOut {
         Scene scene = new Scene(layout);
         finish.setScene(scene);
         finish.showAndWait();
+		}
     }
 	class Task2 extends TimerTask {
 
@@ -103,8 +105,9 @@ public class TimeOut {
 				@Override
 				public void run() {
 					// TODO Auto-generated method stub
-					if (currenttime <= round)
-	            		time.setText(String.valueOf(round - currenttime++));
+					if (currenttime <= round) {
+						time.setText(String.valueOf(round - currenttime++));
+					}
 				}
 			});
 		}	

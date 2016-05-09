@@ -8,6 +8,8 @@ import javafx.stage.Stage;
 
 public class Game2 extends Application {
 
+	private static final int ROUND = 5;
+
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -20,6 +22,7 @@ public class Game2 extends Application {
 		stage.setScene(scene);
 		stage.setTitle("Game 2");
 		stage.show();
+		new TimeOut(ROUND,stage);
 	}
 
 }
