@@ -34,7 +34,8 @@ public class LoginController implements Initializable {
 	@FXML
 	private void Signup(ActionEvent event) throws Exception {
 		if (event.getSource() == signup) {
-			Parent root = FXMLLoader.load(getClass().getResource("SignUp.fxml"));
+			FXMLLoader loader = new FXMLLoader();
+			Parent root = loader.load(getClass().getResource("SignUp.fxml").openStream());
 			Stage stage = new Stage();
 			Scene scene = new Scene(root);
 			stage.setScene(scene);

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
@@ -8,15 +9,15 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainController">
    <children>
-      <TabPane prefHeight="521.0" prefWidth="657.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="521.0" prefWidth="657.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab text="Home">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="492.0" prefWidth="648.0">
                      <children>
-                        <Button fx:id="game1" layoutX="38.0" layoutY="49.0" mnemonicParsing="false" onAction="#OnGame1" prefHeight="140.0" prefWidth="159.0" text="Game 1" />
-                        <Button fx:id="game2" layoutX="218.0" layoutY="189.0" mnemonicParsing="false" onAction="#OnGame2" prefHeight="140.0" prefWidth="159.0" text="Game 2" />
-                        <Button fx:id="game3" layoutX="399.0" layoutY="329.0" mnemonicParsing="false" onAction="#OnGame3" prefHeight="140.0" prefWidth="159.0" text="Game 3" />
+                        <Button fx:id="game1" layoutX="38.0" layoutY="49.0" mnemonicParsing="false" onAction="#OnGame1" prefHeight="140.0" prefWidth="159.0" style="-fx-background-color: mistyrose;" text="Game 1" textAlignment="CENTER" textFill="#3232f5" />
+                        <Button fx:id="game2" layoutX="218.0" layoutY="189.0" mnemonicParsing="false" onAction="#OnGame2" prefHeight="140.0" prefWidth="159.0" style="-fx-background-color: mistyrose;" text="Game 2" textFill="#249ce1" />
+                        <Button fx:id="game3" layoutX="399.0" layoutY="329.0" mnemonicParsing="false" onAction="#OnGame3" prefHeight="140.0" prefWidth="159.0" style="-fx-background-color: mistyrose;" text="Game 3" textFill="#2beef2" />
                         <Label layoutX="486.0" layoutY="49.0" text="Welcom">
                            <font>
                               <Font size="36.0" />
@@ -31,26 +32,46 @@
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab text="Select a book">
+          <Tab onSelectionChanged="#bookPage" text="Book">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <SplitPane dividerPositions="0.29797979797979796" layoutX="40.0" layoutY="52.0" prefHeight="492.0" prefWidth="657.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <items>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                 <children>
+                                    <TableView fx:id="book" layoutX="-4.0" layoutY="23.0" prefHeight="382.0" prefWidth="192.0" AnchorPane.bottomAnchor="108.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <columns>
+                                        <TableColumn fx:id="nameCol" prefWidth="191.0" resizable="false" text="categories" />
+                                      </columns>
+                                    </TableView>
+                                    <Button layoutX="20.0" layoutY="451.0" mnemonicParsing="false" text="NEW" />
+                                    <Button layoutX="114.0" layoutY="451.0" mnemonicParsing="false" text="DELET" />
+                                    <TextField fx:id="name" layoutX="22.0" layoutY="404.0" promptText="book name" />
+                                 </children></AnchorPane>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="490.0" prefWidth="426.0">
+                                 <children>
+                                    <TableView fx:id="table" layoutX="29.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="366.0" prefWidth="400.0">
+                                      <columns>
+                                        <TableColumn fx:id="idCol" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" text="ID" />
+                                        <TableColumn fx:id="wordCol" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" text="Word" />
+                                          <TableColumn fx:id="posCol" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" resizable="false" text="POS" />
+                                          <TableColumn fx:id="transCol" maxWidth="150.0" minWidth="150.0" prefWidth="150.0" text="Translation" />
+                                      </columns>
+                                    </TableView>
+                                    <TextField fx:id="word" layoutX="29.0" layoutY="405.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="150.0" promptText="word" />
+                                    <TextField fx:id="pos" layoutX="204.0" layoutY="405.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="50.0" promptText="pos" />
+                                    <TextField fx:id="trans" layoutX="279.0" layoutY="405.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="150.0" promptText="translation" />
+                                    <Button layoutX="238.0" layoutY="443.0" mnemonicParsing="false" onAction="#add" text="ADD" />
+                                    <Button layoutX="290.0" layoutY="443.0" mnemonicParsing="false" onAction="#delete" text="DELETE" />
+                                    <Button layoutX="354.0" layoutY="443.0" mnemonicParsing="false" onAction="#save" text="SAVE" />
+                                 </children>
+                              </AnchorPane>
+                          </items>
+                        </SplitPane>
+                     </children></AnchorPane>
             </content>
           </Tab>
-            <Tab text="Edit a book">
-               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-               </content>
-            </Tab>
-            <Tab text="Study history">
-               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-               </content>
-            </Tab>
-            <Tab text="User">
-               <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-               </content>
-            </Tab>
         </tabs>
       </TabPane>
    </children>

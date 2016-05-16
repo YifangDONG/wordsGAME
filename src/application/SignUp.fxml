@@ -5,13 +5,12 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="200.0" prefWidth="320.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+<AnchorPane prefHeight="200.0" prefWidth="320.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SingUpController">
    <children>
-      <Label alignment="CENTER" layoutX="35.0" layoutY="14.0" prefHeight="17.0" prefWidth="250.0" textFill="RED" />
-      <TextField layoutX="86.0" layoutY="57.0" promptText="Pick a username" />
-      <PasswordField layoutX="86.0" layoutY="88.0" promptText="Create a password" />
-      <PasswordField layoutX="86.0" layoutY="118.0" promptText="Re-type Password" />
-      <Button layoutX="235.0" layoutY="155.0" mnemonicParsing="false" text="Sign up" />
+      <Label fx:id="message" alignment="CENTER" layoutX="35.0" layoutY="14.0" prefHeight="17.0" prefWidth="250.0" textFill="RED" />
+      <TextField fx:id="username" layoutX="86.0" layoutY="57.0" promptText="Pick a username" />
+      <PasswordField fx:id="password" layoutX="86.0" layoutY="88.0" promptText="Create a password" />
+      <PasswordField fx:id="password2" layoutX="86.0" layoutY="118.0" promptText="Re-type Password" />
+      <Button fx:id="SSignUUP" layoutX="235.0" layoutY="155.0" mnemonicParsing="false" onAction="#Signup" text="Sign up" />
    </children>
 </AnchorPane>

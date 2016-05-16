@@ -31,6 +31,22 @@ public class Vocabulary {
 	/**Gets id of this vocabulary 
 	 * @return the id
 	 */
+	public Vocabulary() {
+		
+	}
+	public Vocabulary(int id, String word, String pos, String trans) {
+		this.id = id;
+        this.word = word;
+        this.pos = pos;
+        this.trans = trans;
+    }
+	
+	public Vocabulary(String word, String pos, String trans) {
+        this.word = word;
+        this.pos = pos;
+        this.trans = trans;
+    }
+	
 	public final int getId() {
 		return id;
 	}

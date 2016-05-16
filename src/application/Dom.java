@@ -1,13 +1,33 @@
 package application;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+import org.w3c.dom.Text;
+import org.xml.sax.SAXException;
 
 /**
  * This class is used for extracting information from XML format file
@@ -81,4 +101,65 @@ public class Dom {
 		}
 		return vocabulary_Vector;
 	}
+	
+	
+	public void writeXMLFile(String file, List<Vocabulary> words) throws Exception {
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder = dbf.newDocumentBuilder();
+		Document doc = builder.newDocument();
+		
+		Element root = doc.createElement("words");
+		for (int i = 0; i < words.size(); i++) {
+			Element entry = doc.createElement("entry");
+			Element id = doc.createElement("id");
+			Text text = doc.createTextNode(String.valueOf(i));
+	        id.appendChild(text);
+			entry.appendChild(id);
+			
+			Element word = doc.createElement("word");
+			text = doc.createTextNode(words.get(i).getWord());
+			word.appendChild(text);
+			entry.appendChild(word);
+			
+			Element pos = doc.createElement("pos");
+			text = doc.createTextNode(words.get(i).getPos());
+			pos.appendChild(text);
+			entry.appendChild(pos);
+			
+			Element trans = doc.createElement("trans");
+			text = doc.createTextNode(words.get(i).getTrans());
+			trans.appendChild(text);
+			entry.appendChild(trans);
+			
+			root.appendChild(entry);
+		}
+		doc.appendChild(root);
+		String result = callWriteXmlString(doc, "gb2312");	
+		FileWriter writer = new FileWriter(file);
+		writer.write(result);
+		writer.close();
+	}
+	
+	private String callWriteXmlString(Document doc, String encoding) {
+        try {
+            Source source = new DOMSource(doc);
+            ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+            OutputStreamWriter write = new OutputStreamWriter(outStream);
+            Result result = new StreamResult(write);
+
+            Transformer xformer = TransformerFactory.newInstance()
+                    .newTransformer();
+            xformer.setOutputProperty(OutputKeys.ENCODING, encoding);
+
+            xformer.transform(source, result);
+            return outStream.toString();
+
+        } catch (TransformerConfigurationException e) {
+            e.printStackTrace();
+            return null;
+        } catch (TransformerException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
