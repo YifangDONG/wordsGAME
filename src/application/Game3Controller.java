@@ -59,7 +59,7 @@ public class Game3Controller implements Initializable {
 	 */
 	private int number;
 	private int currentTime = 0;
-	
+	private String selectedBook = "src/demo.xml";
 	@FXML
 	private Label word;
 	@FXML
@@ -124,7 +124,7 @@ public class Game3Controller implements Initializable {
 		
 		Dom t = new Dom();
 		try {
-			Vector v = t.readXMLFile("src/demo.xml");
+			Vector v = t.readXMLFile(selectedBook);
 			Iterator it = v.iterator();
 			for (int i = 0; i < NUMBER_OF_WORDS ; i++) {
 				Vocabulary voc = (Vocabulary) it.next();

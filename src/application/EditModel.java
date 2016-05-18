@@ -1,6 +1,7 @@
 package application;
 
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -51,6 +52,10 @@ public class EditModel {
 	}
 	
 	public ObservableList showBooks(String username) throws SQLException {
+		return FXCollections.observableArrayList(getBooks(username));
+	}
+	
+	public List<Book> getBooks(String username) throws SQLException {
 		book = new ArrayList();
 		Connection connection = SqliteConnection.Connector();
 		PreparedStatement statement = null;
@@ -61,10 +66,63 @@ public class EditModel {
 		statement.setString(1, username);
 		result = statement.executeQuery();
 		while(result.next()) {
-			book.add(new Book(result.getString(1),"src"+"/"+result.getString(1)+".xml"));
+			book.add(new Book(result.getString(1),"src"+"/"+username+"_"+result.getString(1)+".xml"));
 		}
 		statement.close();
 		result.close();
-		return FXCollections.observableArrayList(book);
+		return book;
+	}
+	public void deleteBook(String user, String bookname, String path) {
+		File file = new File(path);
+		file.delete();
+		Connection connection = SqliteConnection.Connector();
+		String sql = "DELETE FROM book where name = ? and path = ?";
+		String sql2 = "DELETE FROM user_book where username = ? and bookname = ?";
+		PreparedStatement pS;
+		try {
+			pS = connection.prepareStatement(sql);
+			pS.setString(1, bookname);
+			pS.setString(2, path);
+			pS.executeUpdate();		
+			
+			pS = connection.prepareStatement(sql2);
+			pS.setString(1, user);
+			pS.setString(2, bookname);
+
+			pS.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+	public void createBook(String user, String bookname, String path) throws Exception {
+		File file = new File(path);
+		Dom d = new Dom();
+		d.createXMLFile(file.getPath());
+		Connection connection = SqliteConnection.Connector();
+		String sql = "INSERT INTO user_book"
+				+ "(username, bookname) VALUES"
+				+ "(? ,? )";
+		String sql2 = "INSERT INTO book (name, path) VALUES (?, ?)";
+		try {
+			PreparedStatement pS = connection.prepareStatement(sql);
+			pS.setString(1, user);
+			pS.setString(2, bookname);
+			pS.executeUpdate();
+			
+			pS = connection.prepareStatement(sql2);
+			pS.setString(1, bookname);
+			pS.setString(2, path);
+			pS.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+
+		} finally {
+			connection.close();
+		}
+		
 	}
 }

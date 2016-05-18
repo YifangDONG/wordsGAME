@@ -16,8 +16,8 @@ import javafx.scene.text.Text;
 
 public class Game1Controller implements Initializable {
 
-	
-	private Game1Model model = new Game1Model("src/demo.xml");
+	private String selectedBook = "src/demo.xml";
+	private Game1Model model = new Game1Model(selectedBook);
 	private boolean start = true;
 	private static final int SCORE = 10;
 	private static final int ROUND = 20;

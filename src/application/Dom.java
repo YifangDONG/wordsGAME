@@ -102,6 +102,40 @@ public class Dom {
 		return vocabulary_Vector;
 	}
 	
+	public void createXMLFile(String file) throws Exception {
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		DocumentBuilder builder = dbf.newDocumentBuilder();
+		Document doc = builder.newDocument();
+		Element root = doc.createElement("words");
+		Element entry = doc.createElement("entry");
+		
+		Element id = doc.createElement("id");
+		Text text = doc.createTextNode(String.valueOf(0));
+        id.appendChild(text);
+		entry.appendChild(id);		
+		
+		Element word = doc.createElement("word");
+		text = doc.createTextNode("...");
+        word.appendChild(text);
+		entry.appendChild(word);
+		
+		Element pos = doc.createElement("pos");
+		text = doc.createTextNode("...");
+        pos.appendChild(text);
+		entry.appendChild(pos);
+		
+		Element trans = doc.createElement("trans");
+		text = doc.createTextNode("...");
+        trans.appendChild(text);
+		entry.appendChild(trans);
+		
+		root.appendChild(entry);
+		doc.appendChild(root);
+		String result = callWriteXmlString(doc, "gb2312");	
+		FileWriter writer = new FileWriter(file);
+		writer.write(result);
+		writer.close();
+	}
 	
 	public void writeXMLFile(String file, List<Vocabulary> words) throws Exception {
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();

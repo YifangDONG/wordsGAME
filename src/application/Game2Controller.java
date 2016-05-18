@@ -18,7 +18,8 @@ import javafx.stage.Stage;
 
 public class Game2Controller implements Initializable {
 
-	private Game2Model model = new Game2Model("src/demo.xml");
+	private String selectedBook = "src/demo.xml";
+	private Game2Model model = new Game2Model(selectedBook);
 	private boolean start = true;
 	private static final int SCORE = 10;
 	private static final int ROUND = 20;

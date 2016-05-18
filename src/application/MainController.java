@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,7 +33,7 @@ public class MainController implements Initializable{
 	 
 	private static final int ROUND = 20;
 	private EditModel data = new EditModel();
-	private String selectedBook = "src/demo.xml";
+	private String selectedBook;
 	
 	@FXML
 	private Button game1; 
@@ -104,6 +106,24 @@ public class MainController implements Initializable{
 	private TextField name;
 	
 	@FXML
+	public void addBook() throws Exception {
+		Book item = new Book();
+		item.setName(name.getText());
+		String path = "src/"+user.getText()+"_"+name.getText()+".xml";
+		item.setPath(path);
+		data.createBook(user.getText(),name.getText(), path);
+		book.getItems().add(item);
+		name.clear();
+	}
+	@FXML
+	public void deleteBook() {
+		ObservableList<Book> selected, all;
+		all = book.getItems();
+		selected = book.getSelectionModel().getSelectedItems();
+		data.deleteBook(user.getText(), selected.get(0).getName(), selected.get(0).getPath());
+		selected.forEach(all::remove);
+	}
+	@FXML
 	public void add() {
 		Vocabulary item = new Vocabulary();
 		item.setId(0);
@@ -130,17 +150,14 @@ public class MainController implements Initializable{
 	public void save() throws Exception {
 		data.saveinFile(selectedBook, table.getItems());
 		table.setItems(data.showWords(selectedBook));
-		user.getText();
+//		user.getText();
 	}
 	@FXML
-	public void bookPage() {
-		idCol.setCellValueFactory(new PropertyValueFactory<Vocabulary, Integer>("id"));
-		wordCol.setCellValueFactory(new PropertyValueFactory<Vocabulary, String>("word"));
-		posCol.setCellValueFactory(new PropertyValueFactory<Vocabulary, String>("pos"));
-		transCol.setCellValueFactory(new PropertyValueFactory<Vocabulary, String>("trans"));
-		nameCol.setCellValueFactory(new PropertyValueFactory<Book, String>("name"));
-		book.setEditable(true);
-		table.setEditable(true);
+	public void bookPage() throws Exception {
+		if(data.getBooks(user.getText()).size() == 0) {
+			String path = "src/"+user.getText()+"_demo.xml";
+			data.createBook(user.getText(), "demo", path);
+		}
 		try {
 			book.setItems(data.showBooks(user.getText()));
 			book.getSelectionModel().select(0);
@@ -150,10 +167,37 @@ public class MainController implements Initializable{
 			e.printStackTrace();
 		}
 		table.setItems(data.showWords(selectedBook));
-	}
+	}    
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		idCol.setCellValueFactory(new PropertyValueFactory<Vocabulary, Integer>("id"));
+		wordCol.setCellValueFactory(new PropertyValueFactory<Vocabulary, String>("word"));
+		posCol.setCellValueFactory(new PropertyValueFactory<Vocabulary, String>("pos"));
+		transCol.setCellValueFactory(new PropertyValueFactory<Vocabulary, String>("trans"));
+		nameCol.setCellValueFactory(new PropertyValueFactory<Book, String>("name"));
+		book.setEditable(true);
+		table.setEditable(true);
+		book.getSelectionModel().selectedIndexProperty().addListener(new RowSelectChangeListener());
+	}
+	
+	private class RowSelectChangeListener implements ChangeListener<Number> {
+
+		@Override
+		public void changed(ObservableValue<? extends Number> ov, 
+				Number oldVal, Number newVal) {
+
+			int ix = newVal.intValue();
+
+			try {
+				if (ix >= 0 && ix < data.getBooks(user.getText()).size()) {
+					selectedBook = book.getSelectionModel().getSelectedItem().getPath();
+					table.setItems(data.showWords(selectedBook));
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}	
+		}
 	}
 	
 	public void GetUser(String user) {

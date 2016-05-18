@@ -34,16 +34,10 @@ public class SignUpModel {
 		String sql = "INSERT INTO user"
 				+ "(USERNAME, PASSWORD) VALUES"
 				+ "(? ,? )";
-		String sql2 = "INSERT INTO user_book (username, bookname) VALUES (?, ?)";
 		try {
 			PreparedStatement pS = connection.prepareStatement(sql);
 			pS.setString(1, user);
 			pS.setString(2, password);
-			pS.executeUpdate();
-			
-			pS = connection.prepareStatement(sql2);
-			pS.setString(1, user);
-			pS.setString(2, "demo");
 			pS.executeUpdate();
 			return true;
 			

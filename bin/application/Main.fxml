@@ -45,8 +45,8 @@
                                         <TableColumn fx:id="nameCol" prefWidth="191.0" resizable="false" text="categories" />
                                       </columns>
                                     </TableView>
-                                    <Button layoutX="20.0" layoutY="451.0" mnemonicParsing="false" text="NEW" />
-                                    <Button layoutX="114.0" layoutY="451.0" mnemonicParsing="false" text="DELET" />
+                                    <Button layoutX="20.0" layoutY="451.0" mnemonicParsing="false" onAction="#addBook" text="NEW" />
+                                    <Button layoutX="114.0" layoutY="451.0" mnemonicParsing="false" onAction="#deleteBook" text="DELET" />
                                     <TextField fx:id="name" layoutX="22.0" layoutY="404.0" promptText="book name" />
                                  </children></AnchorPane>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="490.0" prefWidth="426.0">
