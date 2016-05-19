@@ -22,6 +22,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -46,14 +47,24 @@ public class MainController implements Initializable{
 	private Label user;
 	
 	@FXML
+	private Tab homepage;
+	@FXML
+	private Tab bookpage;
+	
+	@FXML
 	private void OnGame1(ActionEvent event) throws Exception {
-		Parent root = FXMLLoader.load(getClass().getResource("Game1.fxml"));
+		FXMLLoader loader = new FXMLLoader();
+		Parent root = loader.load(getClass().getResource("Game1.fxml").openStream());
+		Game1Controller controller = (Game1Controller)loader.getController();
+		System.out.println(selectedBook+"  a");
+		controller.setBook(selectedBook);
+//		Parent root = FXMLLoader.load(getClass().getResource("Game1.fxml"));
 		Stage stage = new Stage();
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
 		stage.setTitle("Game 1");
 		stage.show();
-		new TimeOut(ROUND,stage);
+		new TimeOutModel(ROUND,stage);
 	}
 	
 	@FXML
@@ -64,7 +75,7 @@ public class MainController implements Initializable{
 		stage.setScene(scene);
 		stage.setTitle("Game 2");
 		stage.show();
-		new TimeOut(ROUND,stage);
+		new TimeOutModel(ROUND,stage);
 	}
 	
 	@FXML
@@ -76,7 +87,7 @@ public class MainController implements Initializable{
 			stage.setScene(scene);
 			stage.setTitle("Game 3");
 			stage.show();
-			new TimeOut(ROUND,stage);
+			new TimeOutModel(ROUND,stage);
 		}
 	}
 	
@@ -154,20 +165,23 @@ public class MainController implements Initializable{
 	}
 	@FXML
 	public void bookPage() throws Exception {
-		if(data.getBooks(user.getText()).size() == 0) {
+		if(bookpage.getOnSelectionChanged() != null) {
+			if(data.getBooks(user.getText()).size() == 0) {
 			String path = "src/"+user.getText()+"_demo.xml";
 			data.createBook(user.getText(), "demo", path);
+			}
+			try {
+				book.setItems(data.showBooks(user.getText()));
+				book.getSelectionModel().select(0);
+				selectedBook = book.getSelectionModel().getSelectedItem().getPath();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			table.setItems(data.showWords(selectedBook));
 		}
-		try {
-			book.setItems(data.showBooks(user.getText()));
-			book.getSelectionModel().select(0);
-			selectedBook = book.getSelectionModel().getSelectedItem().getPath();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		table.setItems(data.showWords(selectedBook));
-	}    
+		
+	}
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -203,5 +217,7 @@ public class MainController implements Initializable{
 	public void GetUser(String user) {
 		this.user.setText(user);
 	}
-
+	public String getSelectedBook () {
+		return selectedBook;
+	}
 }

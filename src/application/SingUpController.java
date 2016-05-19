@@ -36,20 +36,24 @@ public class SingUpController implements Initializable {
 		@FXML
 		private void Signup(ActionEvent event) throws Exception {
 			if (event.getSource() == SSignUUP) {
-				if (password.getText().equals(password2.getText() ) ) {
-					if (addUser.AddUser(username.getText(),password.getText()) == true) {
-						message.setText("New user added succesful");
-						((Node)(event.getSource())).getScene().getWindow().hide();
+				if (addUser.CountUsername(username.getText())) {
+					if (password.getText().equals(password2.getText() ) ) {
+						if (addUser.AddUser(username.getText(),password.getText()) == true) {
+							message.setText("New user added succesful");
+							((Node)(event.getSource())).getScene().getWindow().hide();
+						}
+						else {
+							message.setText("Failed");
+						}
 					}
 					else {
-						message.setText("Please chosse an other username");
+						message.setText("Please enter the same password");
 					}
 				}
 				else {
-					message.setText("Please enter the same password");
+					message.setText("Please chosse an other username");
 				}
 			}
-
 		}
 		
 		@Override

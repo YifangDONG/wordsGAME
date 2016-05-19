@@ -16,8 +16,8 @@ import javafx.scene.text.Text;
 
 public class Game1Controller implements Initializable {
 
-	private String selectedBook = "src/demo.xml";
-	private Game1Model model = new Game1Model(selectedBook);
+	private String selectedBook;
+	private Game1Model model;
 	private boolean start = true;
 	private static final int SCORE = 10;
 	private static final int ROUND = 20;
@@ -41,14 +41,19 @@ public class Game1Controller implements Initializable {
 	@FXML
 	private Button next;
 	
-	
+	public void setBook(String book) {
+		selectedBook = book;
+		if (selectedBook == null)
+			selectedBook = "src/demo.xml";
+		model = new Game1Model(selectedBook);
+		word.setText(model.getWordlist().get(0).getWord() + " " + model.getWordlist().get(0).getPos());
+		alphabetSet(model.shuffleString(model.getWordlist().get(0).getTrans()));
+	}
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
-		word.setText(model.getWordlist().get(0).getWord() + " " + model.getWordlist().get(0).getPos());
-		alphabetSet(model.shuffleString(model.getWordlist().get(0).getTrans()));
 		score.setText("0");
-		new TimeOut(ROUND,time);
+		new TimeOutModel(ROUND,time);
 	}
 	
 	@FXML
@@ -67,6 +72,7 @@ public class Game1Controller implements Initializable {
 			for (int j = 0; j < COL && !word.isEmpty(); j++) {
 				Button button = new Button();
 				button.setText(word.get(0));
+				button.setStyle("-fx-base: #DDA0DD");
 				button.setOnAction((ActionEvent e)-> pushButton(e));
 				grid.add(button, j, i);
 				word.remove(0);

@@ -27,7 +27,25 @@ public class SignUpModel {
 			return false;
 		}
 	}
-	
+	public boolean CountUsername (String user) throws SQLException {
+		String sql = "SELECT COUNT(*) AS total from user WHERE username = ?";
+		PreparedStatement statement = null;
+		try {
+			statement = connection.prepareStatement(sql);
+			statement.setString(1, user);
+			ResultSet result = statement.executeQuery();
+			
+			
+			return (result.getInt("total") == 0 );
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			//connection.close();
+			//result.close();
+		}
+	}
 	public boolean AddUser(String user, String password) throws SQLException {
 		
 		

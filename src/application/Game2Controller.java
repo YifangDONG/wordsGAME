@@ -45,15 +45,16 @@ public class Game2Controller implements Initializable {
 		Set(tiles);
 		score.setText("0");
 		time.setText("");
-    	new TimeOut(ROUND,time);
+    	new TimeOutModel(ROUND,time);
 	}
 	public void Set(List<String> word) {
 		for (int i = 0; i < ROW && !word.isEmpty(); i++) {
 			for (int j = 0; j < COL && !word.isEmpty(); j++) {
 				Button button = new Button();
 				button.setText(tiles.get(i*COL+j));
-				button.setPrefSize(100, 80);
+				button.setPrefSize(150, 80);
 				button.setUnderline(false);
+				button.setStyle("-fx-border-color: #b6e7c9 ; -fx-base: #b6e7c9");
 				button.setOnAction(e->Click(e));
 				grid.add(button, j, i);
 			}

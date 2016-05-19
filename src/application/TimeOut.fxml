@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="200.0" prefWidth="360.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.TimeOutController">
+   <children>
+      <Button fx:id="OK" layoutX="149.0" layoutY="161.0" mnemonicParsing="false" onAction="#Close" text="OK" />
+      <Label fx:id="stats" alignment="CENTER" layoutX="48.0" layoutY="21.0" prefHeight="86.0" prefWidth="240.0" wrapText="true" />
+   </children>
+</AnchorPane>
+

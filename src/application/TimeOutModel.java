@@ -1,22 +1,42 @@
 package application;
 
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+public class TimeOutModel {
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
-public class TimeOut {
 
 	private Timer timer;
-	private Stage stage;
+	public Stage stage;
 	private Label time;
 	private int currenttime = 0;
 	/**
@@ -29,7 +49,7 @@ public class TimeOut {
 	 * @param second time delayed before task is to be executed
 	 * @param stage the stage of this main application
 	 */
-	public TimeOut (int second, Stage stage) {
+	public TimeOutModel (int second, Stage stage) {
 		timer = new Timer();
 		this.stage = stage;
 		timer.schedule(new Task1(), second * 1000);
@@ -39,7 +59,7 @@ public class TimeOut {
 	 * @param second time delayed before task is to be executed
 	 * @param time the label which shows the time left
 	 */
-	public TimeOut(int second, Label time) {
+	public TimeOutModel(int second, Label time) {
 		this.time = time;
 		round = second;
 		timer = new Timer();
@@ -53,7 +73,12 @@ public class TimeOut {
 
 				@Override
 				public void run() {
-					display("Game over", "congratulation !");		
+					try {
+						display("Game over", "congratulation !");
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}		
 				}
 			});	
 		}
@@ -62,40 +87,29 @@ public class TimeOut {
 	 * Displays a new window with title and message 
 	 * @param title the title of this window
 	 * @param message the message showed in this window
+	 * @throws IOException 
 	 */
-	public void display(String title, String message) {
-		if(stage.isShowing()) {
-        Stage finish = new Stage();
-
-        //Block events to other windows
-        finish.initModality(Modality.APPLICATION_MODAL);
-        
-        finish.setTitle(title);
-        finish.setMinWidth(250);
-        finish.setMinHeight(150);
-
-        Label label = new Label();
-        label.setText(message);
-        Button closeButton = new Button("OK");
-        closeButton.setOnAction(e -> {
-        	finish.close();
-        	stage.close();
-        });
-        finish.setOnCloseRequest(e -> {
-        	finish.close();
-        	stage.close();
-        });
-
-        VBox layout = new VBox(10);
-        layout.getChildren().addAll(label, closeButton);
-        layout.setAlignment(Pos.CENTER);
-
-        //Display window and wait for it to be closed before returning
-        Scene scene = new Scene(layout);
-        finish.setScene(scene);
-        finish.showAndWait();
+	
+	public void display(String title, String message) throws IOException {
+		if (stage.isShowing()) {
+			//Parent root = loader.load(getClass().getResource("TimeOutController.fxml").openStream());
+			Parent root = FXMLLoader.load(getClass().getResource("TimeOut.fxml"));
+			Stage stage = new Stage();
+			Scene scene = new Scene(root);
+			//Group root = new Group();			
+			stage.setScene(scene);
+			//stage.setScene(scene);
+			stage.setTitle("TimeOutController");
+			stage.show();
 		}
-    }
+	}
+	
+	
+
+	
+	
+	
+	
 	class Task2 extends TimerTask {
 
 		@Override
@@ -112,4 +126,18 @@ public class TimeOut {
 			});
 		}	
 	}
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
 }
+

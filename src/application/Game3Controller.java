@@ -141,6 +141,6 @@ public class Game3Controller implements Initializable {
     	int i = random.nextInt(NUMBER_OF_WORDS);
     	word.setText(wordlist[i].getWord() + " " + wordlist[i].getPos());
     	number = i;
-    	new TimeOut(ROUND,time);
+    	new TimeOutModel(ROUND,time);
 	}
 }
