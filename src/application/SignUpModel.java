@@ -46,8 +46,7 @@ public class SignUpModel {
 			//result.close();
 		}
 	}
-	public boolean AddUser(String user, String password) throws SQLException {
-		
+	public boolean AddUser(String user, String password) throws Exception {
 		
 		String sql = "INSERT INTO user"
 				+ "(USERNAME, PASSWORD) VALUES"
@@ -56,15 +55,19 @@ public class SignUpModel {
 			PreparedStatement pS = connection.prepareStatement(sql);
 			pS.setString(1, user);
 			pS.setString(2, password);
-			pS.executeUpdate();
+			pS.executeUpdate();			
+			EditModel edit = new EditModel();
+			String path = "src/" + user + "_demo.xml"; 
+			edit.createBook(user, "demo", path);
 			return true;
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
 		} finally {
 			connection.close();
 		}
+
 	}
 	
 }

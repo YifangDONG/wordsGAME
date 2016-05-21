@@ -97,7 +97,6 @@ public class Game1Controller implements Initializable {
 		ok.setVisible(true);
 		grid.getChildren().clear();
 		output.setText("");
-		ok.setText("OK");
 		number++;
 		number %= model.getWordlist().size();
 		word.setText(model.getWordlist().get(number).getWord()

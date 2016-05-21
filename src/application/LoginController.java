@@ -51,7 +51,7 @@ public class LoginController implements Initializable {
 				FXMLLoader loader = new FXMLLoader();
 				Parent root = loader.load(getClass().getResource("Main.fxml").openStream());
 				MainController mainController = (MainController)loader.getController();
-				//mainController. 
+				mainController.GetUser( username.getText());
 				Stage stage = new Stage();
 				Scene scene = new Scene(root);
 				stage.setScene(scene);

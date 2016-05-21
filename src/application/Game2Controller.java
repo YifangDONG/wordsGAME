@@ -18,8 +18,8 @@ import javafx.stage.Stage;
 
 public class Game2Controller implements Initializable {
 
-	private String selectedBook = "src/demo.xml";
-	private Game2Model model = new Game2Model(selectedBook);
+	private String selectedBook;
+	private Game2Model model;
 	private boolean start = true;
 	private static final int SCORE = 10;
 	private static final int ROUND = 20;
@@ -38,11 +38,17 @@ public class Game2Controller implements Initializable {
 	
 	List<String> tiles;
 
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
+	public void setBook(String book) {
+		selectedBook = book;
+		if (selectedBook == null)
+			selectedBook = "src/demo.xml";
+		model = new Game2Model(selectedBook);
 		tiles = model.TileWord(ROW*COL>model.getWordlist().size()?ROW*COL/2:model.getWordlist().size()/2);
 		Set(tiles);
+	}
+	
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
 		score.setText("0");
 		time.setText("");
     	new TimeOutModel(ROUND,time);

@@ -47,18 +47,12 @@ public class MainController implements Initializable{
 	private Label user;
 	
 	@FXML
-	private Tab homepage;
-	@FXML
-	private Tab bookpage;
-	
-	@FXML
 	private void OnGame1(ActionEvent event) throws Exception {
 		FXMLLoader loader = new FXMLLoader();
 		Parent root = loader.load(getClass().getResource("Game1.fxml").openStream());
 		Game1Controller controller = (Game1Controller)loader.getController();
-		System.out.println(selectedBook+"  a");
 		controller.setBook(selectedBook);
-//		Parent root = FXMLLoader.load(getClass().getResource("Game1.fxml"));
+
 		Stage stage = new Stage();
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
@@ -69,7 +63,11 @@ public class MainController implements Initializable{
 	
 	@FXML
 	private void OnGame2(ActionEvent event) throws Exception {
-		Parent root = FXMLLoader.load(getClass().getResource("Game2.fxml"));
+		FXMLLoader loader = new FXMLLoader();
+		Parent root = loader.load(getClass().getResource("Game2.fxml").openStream());
+		Game2Controller controller = (Game2Controller)loader.getController();
+		controller.setBook(selectedBook);
+		
 		Stage stage = new Stage();
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
@@ -80,15 +78,18 @@ public class MainController implements Initializable{
 	
 	@FXML
 	private void OnGame3(ActionEvent event) throws Exception {
-		if(event.getSource() == game3) {
-			Parent root = FXMLLoader.load(getClass().getResource("Game3.fxml"));
-			Stage stage = new Stage();
-			Scene scene = new Scene(root);
-			stage.setScene(scene);
-			stage.setTitle("Game 3");
-			stage.show();
-			new TimeOutModel(ROUND,stage);
-		}
+		FXMLLoader loader = new FXMLLoader();
+		Parent root = loader.load(getClass().getResource("Game3.fxml").openStream());
+		Game3Controller controller = (Game3Controller)loader.getController();
+		controller.setBook(selectedBook);
+		
+
+		Stage stage = new Stage();
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+		stage.setTitle("Game 3");
+		stage.show();
+		new TimeOutModel(ROUND,stage);
 	}
 	
 	@FXML
@@ -165,22 +166,15 @@ public class MainController implements Initializable{
 	}
 	@FXML
 	public void bookPage() throws Exception {
-		if(bookpage.getOnSelectionChanged() != null) {
-			if(data.getBooks(user.getText()).size() == 0) {
+		if(data.getBooks(user.getText()).size() == 0) {
 			String path = "src/"+user.getText()+"_demo.xml";
 			data.createBook(user.getText(), "demo", path);
-			}
-			try {
-				book.setItems(data.showBooks(user.getText()));
-				book.getSelectionModel().select(0);
-				selectedBook = book.getSelectionModel().getSelectedItem().getPath();
-				
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			table.setItems(data.showWords(selectedBook));
 		}
-		
+		try {
+			book.setItems(data.showBooks(user.getText()));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Override

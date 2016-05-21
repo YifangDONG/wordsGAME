@@ -24,13 +24,7 @@ import javafx.scene.control.TextField;
  * @version 1.0
  *
  */
-public class Game3Controller implements Initializable {
-
-	/**
-	 * the number of words in word list for each playing
-	 */
-	final int NUMBER_OF_WORDS = 10;
-	
+public class Game3Controller implements Initializable {	
 	/**
 	 * the score added when player has one answer correct
 	 */
@@ -40,11 +34,7 @@ public class Game3Controller implements Initializable {
 	 * the during of each playing. the default is {@link #ROUND}
 	 */
 	final int ROUND = 20;
-	
-	/**
-	 * the array of Vocabulary which store all the words in this game
-	 */
-	private Vocabulary[] wordlist = new Vocabulary[NUMBER_OF_WORDS];
+
 	private Random random = new Random();
 	
 	/**
@@ -52,14 +42,15 @@ public class Game3Controller implements Initializable {
 	 * when the button has been clicked, clicked = true <br>
 	 * it is used to make sure that button can be clicked only one time for each word
 	 */
-	private boolean clicked = false;
+//	private boolean clicked = false;
 	
 	/**
 	 * the id of the word which is showed know
 	 */
 	private int number;
 	private int currentTime = 0;
-	private String selectedBook = "src/demo.xml";
+	private String selectedBook;
+	private Game3Model model;
 	@FXML
 	private Label word;
 	@FXML
@@ -87,12 +78,11 @@ public class Game3Controller implements Initializable {
         if (event.getSource() == ok) {
         	int currentScore = Integer.parseInt(score.getText());
         	String currentAnswer = writting.getText();
-        	if (wordlist[number].getTrans().equals(currentAnswer) && clicked == false) {
+        	if (model.getWordlist().get(number).getTrans().equals(currentAnswer) && ok.isVisible()) {
         		score.setText(String.valueOf(currentScore + SCORE));
-        		ok.setOnMouseClicked(e -> clicked = true);
+        		ok.setVisible(false);
         	}
-        	answer.setText("right answer : " + wordlist[number].getTrans());
-        	ok.setText("");
+    		answer.setText("right answer : " + model.getWordlist().get(number).getTrans());
         }
 	}
     
@@ -104,15 +94,24 @@ public class Game3Controller implements Initializable {
 	 */
 	@FXML
 	public void Next(ActionEvent event) {
-		clicked = false;
+		ok.setVisible(true);
         if (event.getSource() == next) {
         	writting.setText("");
-        	ok.setText("OK");
-        	int i = random.nextInt(NUMBER_OF_WORDS);
-        	word.setText(wordlist[i].getWord() + " " + wordlist[i].getPos());
+        	int i = random.nextInt(model.getWordlist().size());
+        	word.setText(model.getWordlist().get(i).getWord()+ " " + model.getWordlist().get(i).getPos());
         	number = i;
+        	answer.setText("");
         }
     }
+	public void setBook(String book) {
+		selectedBook = book;
+		if (selectedBook == null)
+			selectedBook = "src/demo.xml";
+		model = new Game3Model(selectedBook);
+    	int i = random.nextInt(model.getWordlist().size());
+    	word.setText(model.getWordlist().get(i).getWord()+ " " + model.getWordlist().get(i).getPos());
+    	number = i;
+	}
 	
 	/**
 	 * This method will be carried out automatically when this game begins
@@ -121,26 +120,6 @@ public class Game3Controller implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
 		score.setText("0");
-		
-		Dom t = new Dom();
-		try {
-			Vector v = t.readXMLFile(selectedBook);
-			Iterator it = v.iterator();
-			for (int i = 0; i < NUMBER_OF_WORDS ; i++) {
-				Vocabulary voc = (Vocabulary) it.next();
-				wordlist[i] = new Vocabulary();
-				
-				wordlist[i].setId(voc.getId()); 
-				wordlist[i].setWord(voc.getWord());
-				wordlist[i].setPos(voc.getPos());
-				wordlist[i].setTrans(voc.getTrans());
-			} 
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-    	int i = random.nextInt(NUMBER_OF_WORDS);
-    	word.setText(wordlist[i].getWord() + " " + wordlist[i].getPos());
-    	number = i;
     	new TimeOutModel(ROUND,time);
 	}
 }
