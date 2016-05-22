@@ -55,19 +55,18 @@ public class SignUpModel {
 			PreparedStatement pS = connection.prepareStatement(sql);
 			pS.setString(1, user);
 			pS.setString(2, password);
-			pS.executeUpdate();			
-			EditModel edit = new EditModel();
-			String path = "src/" + user + "_demo.xml"; 
-			edit.createBook(user, "demo", path);
-			return true;
-
+			pS.executeUpdate();	
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
 		} finally {
 			connection.close();
 		}
-
+		EditModel edit = new EditModel();
+		String path = "src/" + user + "_demo.xml"; 
+		edit.createBook(user, "demo", path);
+		return true;
 	}
 	
 }

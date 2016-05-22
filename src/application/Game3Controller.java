@@ -128,7 +128,7 @@ public class Game3Controller implements Initializable {
 		score.setText("0");
 		time.setText("");
 		time.textProperty().addListener((observable, oldValue, newValue)->{
-			if(newValue.equals("0")) {
+			if(newValue.equals("0")&&gameStage.isShowing()) {
 				try {
 					FXMLLoader loader = new FXMLLoader();
 					Parent root = loader.load(getClass().getResource("TimeOut.fxml").openStream());
