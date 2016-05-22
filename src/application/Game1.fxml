@@ -15,7 +15,7 @@
       	<Button fx:id="ok" layoutX="93.0" layoutY="496.0" mnemonicParsing="false" onAction="#OK" prefHeight="25.0" prefWidth="67.0" text="OK" />
       	<Label fx:id="score" layoutX="309.0" layoutY="63.0" prefHeight="25.0" prefWidth="42.0" text="Label" />
       <Label layoutX="233.0" layoutY="67.0" text="Score：" />
-      <Label layoutX="36.0" layoutY="67.0" prefHeight="17.0" prefWidth="42.0" text="Time : " />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="11.0" layoutY="67.0" prefHeight="17.0" prefWidth="58.0" text="Time : " />
       <Label fx:id="time" layoutX="93.0" layoutY="67.0" text="Label" />
       <Text fx:id="output" layoutX="89.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="222.13671875" AnchorPane.bottomAnchor="390.482421875" AnchorPane.leftAnchor="89.0" AnchorPane.rightAnchor="89.0" AnchorPane.topAnchor="185.576171875">
          <font>

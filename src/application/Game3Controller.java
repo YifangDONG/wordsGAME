@@ -1,5 +1,6 @@
 package application;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.EventObject;
 import java.util.Iterator;
@@ -13,10 +14,14 @@ import java.util.Vector;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 /**
  * This is a class for controlling the view of this application
@@ -51,6 +56,7 @@ public class Game3Controller implements Initializable {
 	private int currentTime = 0;
 	private String selectedBook;
 	private Game3Model model;
+	private Stage gameStage;
 	@FXML
 	private Label word;
 	@FXML
@@ -80,8 +86,8 @@ public class Game3Controller implements Initializable {
         	String currentAnswer = writting.getText();
         	if (model.getWordlist().get(number).getTrans().equals(currentAnswer) && ok.isVisible()) {
         		score.setText(String.valueOf(currentScore + SCORE));
-        		ok.setVisible(false);
         	}
+        	ok.setVisible(false);
     		answer.setText("right answer : " + model.getWordlist().get(number).getTrans());
         }
 	}
@@ -120,6 +126,28 @@ public class Game3Controller implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
 		score.setText("0");
-    	new TimeOutModel(ROUND,time);
+		time.setText("");
+		time.textProperty().addListener((observable, oldValue, newValue)->{
+			if(newValue.equals("0")) {
+				try {
+					FXMLLoader loader = new FXMLLoader();
+					Parent root = loader.load(getClass().getResource("TimeOut.fxml").openStream());
+					TimeOutController controller = (TimeOutController)loader.getController();
+					controller.setScore(score.getText());
+					Stage stage = new Stage();
+					Scene scene = new Scene(root);		
+					stage.setScene(scene);
+					stage.setTitle("Game over");
+					stage.show();
+					gameStage.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		new TimeOutModel(ROUND,time);
+	}
+	public void setStage(Stage stage) {
+		gameStage = stage;
 	}
 }

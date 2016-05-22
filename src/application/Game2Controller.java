@@ -1,13 +1,17 @@
 package application;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -26,7 +30,7 @@ public class Game2Controller implements Initializable {
 	private int number = 0;
 	final int ROW = 4;
 	final int COL = 3;
-	
+	private Stage gameStage;
 	@FXML
 	private GridPane grid;
 	@FXML
@@ -51,7 +55,25 @@ public class Game2Controller implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		score.setText("0");
 		time.setText("");
-    	new TimeOutModel(ROUND,time);
+		time.textProperty().addListener((observable, oldValue, newValue)->{
+			if(newValue.equals("0")) {
+				try {
+					FXMLLoader loader = new FXMLLoader();
+					Parent root = loader.load(getClass().getResource("TimeOut.fxml").openStream());
+					TimeOutController controller = (TimeOutController)loader.getController();
+					controller.setScore(score.getText());
+					Stage stage = new Stage();
+					Scene scene = new Scene(root);		
+					stage.setScene(scene);
+					stage.setTitle("Game over");
+					stage.show();
+					gameStage.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		new TimeOutModel(ROUND,time);
 	}
 	public void Set(List<String> word) {
 		for (int i = 0; i < ROW && !word.isEmpty(); i++) {
@@ -110,5 +132,8 @@ public class Game2Controller implements Initializable {
 		model.shuffle();
 		tiles = model.TileWord(ROW*COL>model.getWordlist().size()?ROW*COL/2:model.getWordlist().size()/2);
 		Set(tiles);
+	}
+	public void setStage(Stage stage) {
+		gameStage = stage;
 	}
 }

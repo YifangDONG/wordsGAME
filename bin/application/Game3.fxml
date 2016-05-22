@@ -16,7 +16,7 @@
       	<Button fx:id="ok" layoutX="93.0" layoutY="496.0" mnemonicParsing="false" onAction="#OK" prefHeight="25.0" prefWidth="67.0" text="OK" />
       	<Label fx:id="score" layoutX="309.0" layoutY="63.0" prefHeight="25.0" prefWidth="42.0" text="Label" />
       <Label layoutX="233.0" layoutY="67.0" text="Score：" />
-      <Label layoutX="36.0" layoutY="67.0" prefHeight="17.0" prefWidth="42.0" text="Time : " />
+      <Label alignment="CENTER" layoutX="19.0" layoutY="67.0" prefHeight="17.0" prefWidth="59.0" text="Time : " />
       <Label fx:id="time" layoutX="93.0" layoutY="67.0" text="Label" />
      </children>
 </AnchorPane>

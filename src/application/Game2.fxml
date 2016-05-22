@@ -12,7 +12,7 @@
       	<Button fx:id="next" layoutX="363.0" layoutY="523.0" mnemonicParsing="false" onAction="#Next" prefHeight="25.0" prefWidth="67.0" text="NEXT" />
       	<Label fx:id="score" layoutX="376.0" layoutY="63.0" prefHeight="25.0" prefWidth="42.0" text="Label" />
       <Label layoutX="323.0" layoutY="68.0" text="Score：" />
-      <Label layoutX="76.0" layoutY="67.0" prefHeight="17.0" prefWidth="42.0" text="Time : " />
+      <Label alignment="CENTER" layoutX="51.0" layoutY="67.0" prefHeight="17.0" prefWidth="67.0" text="Time : " />
       <Label fx:id="time" layoutX="125.0" layoutY="68.0" text="Label" />
       <GridPane fx:id="grid" alignment="CENTER" layoutX="22.0" layoutY="130.0" prefHeight="353.0" prefWidth="358.0" AnchorPane.bottomAnchor="117.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="130.0">
         <columnConstraints>
@@ -29,4 +29,3 @@
       </GridPane>
      </children>
 </AnchorPane>
-

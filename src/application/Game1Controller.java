@@ -1,18 +1,24 @@
 package application;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class Game1Controller implements Initializable {
 
@@ -24,6 +30,7 @@ public class Game1Controller implements Initializable {
 	private int number = 0;
 	final int ROW = 4;
 	final int COL = 6;
+	private Stage gameStage;
 	@FXML
     private Text output;
 	@FXML
@@ -41,6 +48,7 @@ public class Game1Controller implements Initializable {
 	@FXML
 	private Button next;
 	
+
 	public void setBook(String book) {
 		selectedBook = book;
 		if (selectedBook == null)
@@ -53,6 +61,25 @@ public class Game1Controller implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
 		score.setText("0");
+		time.setText("");
+		time.textProperty().addListener((observable, oldValue, newValue)->{
+			if(newValue.equals("0")) {
+				try {
+					FXMLLoader loader = new FXMLLoader();
+					Parent root = loader.load(getClass().getResource("TimeOut.fxml").openStream());
+					TimeOutController controller = (TimeOutController)loader.getController();
+					controller.setScore(score.getText());
+					Stage stage = new Stage();
+					Scene scene = new Scene(root);		
+					stage.setScene(scene);
+					stage.setTitle("Game over");
+					stage.show();
+					gameStage.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		});
 		new TimeOutModel(ROUND,time);
 	}
 	
@@ -86,8 +113,8 @@ public class Game1Controller implements Initializable {
 		String currentAnswer = output.getText();
 		if (model.getWordlist().get(number).getTrans().equals(currentAnswer) && ok.isVisible()) {
 			score.setText(String.valueOf(currentScore + SCORE));
-			ok.setVisible(false);
 		}
+		ok.setVisible(false);
 		answer.setText("right answer : " + model.getWordlist().get(number).getTrans());
 		output.setDisable(true);
 	}
@@ -103,5 +130,9 @@ public class Game1Controller implements Initializable {
 				+ " " + model.getWordlist().get(number).getPos()); 
 		alphabetSet(model.shuffleString(model.getWordlist().get(number).getTrans()));
 		answer.setText("");
+	}
+	
+	public void setStage(Stage stage) {
+		gameStage = stage;
 	}
 }

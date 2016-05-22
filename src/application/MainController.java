@@ -28,6 +28,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class MainController implements Initializable{
@@ -52,13 +53,15 @@ public class MainController implements Initializable{
 		Parent root = loader.load(getClass().getResource("Game1.fxml").openStream());
 		Game1Controller controller = (Game1Controller)loader.getController();
 		controller.setBook(selectedBook);
+		
 
 		Stage stage = new Stage();
+		controller.setStage(stage);
+		stage.initModality(Modality.APPLICATION_MODAL);
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
 		stage.setTitle("Game 1");
-		stage.show();
-		new TimeOutModel(ROUND,stage);
+		stage.showAndWait();
 	}
 	
 	@FXML
@@ -69,11 +72,12 @@ public class MainController implements Initializable{
 		controller.setBook(selectedBook);
 		
 		Stage stage = new Stage();
+		controller.setStage(stage);
+		stage.initModality(Modality.APPLICATION_MODAL);
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
 		stage.setTitle("Game 2");
-		stage.show();
-		new TimeOutModel(ROUND,stage);
+		stage.showAndWait();
 	}
 	
 	@FXML
@@ -85,11 +89,12 @@ public class MainController implements Initializable{
 		
 
 		Stage stage = new Stage();
+		controller.setStage(stage);
+		stage.initModality(Modality.APPLICATION_MODAL);
 		Scene scene = new Scene(root);
 		stage.setScene(scene);
 		stage.setTitle("Game 3");
-		stage.show();
-		new TimeOutModel(ROUND,stage);
+		stage.showAndWait();
 	}
 	
 	@FXML
